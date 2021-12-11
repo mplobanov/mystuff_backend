@@ -28,10 +28,22 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', '20.123.178.238', 'api.stuff.lbnv.mp']
 
+# CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1',
+    'http://localhost:3000',
+    'https://localhost:3000',
+)
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'graphene_django',
     'stuff_back.apps.StuffBackConfig',
     'django.contrib.admin',
@@ -43,13 +55,20 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 ROOT_URLCONF = 'mystuff.urls'
@@ -132,5 +151,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GRAPHENE = {
-    'SCHEMA': 'stuff_back.schema.schema'
+    'SCHEMA': 'stuff_back.schema.schema',
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
 }

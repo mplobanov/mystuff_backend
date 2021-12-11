@@ -3,3 +3,5 @@ psycopg2>=2.8
 graphene~=2.1.9
 graphene-django
 django-filter
+django-cors-headers
+django-graphql-jwt

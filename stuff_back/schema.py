@@ -1,6 +1,8 @@
 from .schemas.mutations import *
 from .schemas.users import *
 
+import graphql_jwt
+
 
 class Query(graphene.ObjectType):
     location = relay.Node.Field(LocationNode)
@@ -58,6 +60,10 @@ class Mutation(graphene.ObjectType):
     login = UserLoginMutation.Field()
     logout = UserLogoutMutation.Field()
     register = UserCreateMutation.Field()
+
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
 
     add_location = LocationMutation.Field()
     edit_location = LocationMutation.Field()
