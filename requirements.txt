@@ -1,0 +1,4 @@
+Django~=3.2.10
+psycopg2>=2.8
+graphene~=2.1.9
+graphene-django
