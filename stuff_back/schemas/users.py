@@ -1,4 +1,5 @@
 import graphene
+import graphql_jwt
 from graphene import relay, ObjectType
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
@@ -66,6 +67,6 @@ class UserCreateMutation(graphene.Mutation):
             Group.objects.create(name='Носки', gr_owner=user)
             Group.objects.create(name='Куртки', gr_owner=user)
 
-            lg(info.context, user)
+            lg(info.context, user, backend="graphql_jwt.backends.JSONWebTokenBackend")
             return UserCreateMutation(current_user=user)
 
