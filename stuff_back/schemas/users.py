@@ -59,7 +59,7 @@ class UserCreateMutation(graphene.Mutation):
         if user is not None:
             raise Exception("User already exists")
         else:
-            user = User.objects.create(username=login, password=password, first_name=first_name, email=login)
+            user = User.objects.create_user(login, login, password,first_name=first_name)
 
             # это очень страшно, но дедлайн есть дедлайн
             Location.objects.create(name="Дом", loc_owner=user)
@@ -67,6 +67,6 @@ class UserCreateMutation(graphene.Mutation):
             Group.objects.create(name='Носки', gr_owner=user)
             Group.objects.create(name='Куртки', gr_owner=user)
 
-            lg(info.context, user, backend="graphql_jwt.backends.JSONWebTokenBackend")
+            lg(info.context, user, backend="django.contrib.auth.backends.ModelBackend")
             return UserCreateMutation(current_user=user)
 
