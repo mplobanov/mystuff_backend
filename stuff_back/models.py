@@ -8,7 +8,7 @@ class Location(models.Model):
     loc_owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='locations')
 
     def __str__(self):
-        return "Loaction {}".format(self.name)
+        return "Loaction {} by {}".format(self.name, self.loc_owner.username)
 
 
 class Status(models.Model):
@@ -19,7 +19,7 @@ class Status(models.Model):
     st_owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='statuses')
 
     def __str__(self):
-        return "Status {}".format(self.name)
+        return "Status {} by {}".format(self.name, self.st_owner.username)
 
 
 class Group(models.Model):
@@ -27,7 +27,7 @@ class Group(models.Model):
     gr_owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='stuff_groups')
 
     def __str__(self):
-        return "Group {}".format(self.name)
+        return "Group {} by {}".format(self.name, self.gr_owner.username)
 
 
 class Item(models.Model):
@@ -58,6 +58,7 @@ class Item(models.Model):
             ans.append(self.volume)
         ans.append("({})".format(self.status.name))
         ans.append("- {}".format(self.location.name))
+        ans.append(" by {}".format(self.owner.username))
         return " ".join(ans)
 
 
