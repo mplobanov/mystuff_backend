@@ -34,10 +34,12 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1',
     'http://localhost:3000',
     'https://localhost:3000',
+    'https://ecstatic-mestorf-40c4ba.netlify.app',
 )
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
+    "https://ecstatic-mestorf-40c4ba.netlify.app",
 ]
 
 # Application definition
